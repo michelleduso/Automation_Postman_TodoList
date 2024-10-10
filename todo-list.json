@@ -1,0 +1,39 @@
+{
+	"id": "e6cf2175-fa84-41bf-9d17-3b5c55b212f3",
+	"name": "todo-list",
+	"values": [
+		{
+			"key": "name_user",
+			"value": "Michelle Duso",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "user",
+			"value": "michelleduso",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "password_user",
+			"value": "12345",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "url",
+			"value": "https://todolist-duso.onrender.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "taskId",
+			"value": "900e962d-fd69-4e87-99ee-187e7e1c5570",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-10-08T21:35:37.988Z",
+	"_postman_exported_using": "Postman/11.15.0"
+}

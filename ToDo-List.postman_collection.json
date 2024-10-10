@@ -1,0 +1,720 @@
+{
+	"info": {
+		"_postman_id": "5923edc3-e408-4030-b5e9-d2fd56680159",
+		"name": "ToDo-List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21994949"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Cadastro de usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Definição do schema JSON (deve vir antes de sua utilização)\r",
+									"const jsonSchema = {\r",
+									"    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\r",
+									"    \"$id\": \"http://example.com/example.json\",\r",
+									"    \"type\": \"object\",\r",
+									"    \"default\": {},\r",
+									"    \"title\": \"Root Schema\",\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"username\",\r",
+									"        \"name\",\r",
+									"        \"password\",\r",
+									"        \"createdAt\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"string\",\r",
+									"            \"default\": \"\",\r",
+									"            \"title\": \"The id Schema\",\r",
+									"            \"examples\": [\r",
+									"                \"38b5a12c-50f2-4a09-b3c3-4e05bbf0690d\"\r",
+									"            ]\r",
+									"        },\r",
+									"        \"username\": {\r",
+									"            \"type\": \"string\",\r",
+									"            \"default\": \"\",\r",
+									"            \"title\": \"The username Schema\",\r",
+									"            \"examples\": [\r",
+									"                \"teste\"\r",
+									"            ]\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\",\r",
+									"            \"default\": \"\",\r",
+									"            \"title\": \"The name Schema\",\r",
+									"            \"examples\": [\r",
+									"                \"Michelle Duso\"\r",
+									"            ]\r",
+									"        },\r",
+									"        \"password\": {\r",
+									"            \"type\": \"string\",\r",
+									"            \"default\": \"\",\r",
+									"            \"title\": \"The password Schema\",\r",
+									"            \"examples\": [\r",
+									"                \"$2a$12$ZjKHQapSWCObio2STlcB4ekIUHK1mJ68VoxC3i5zA8x0JBjlHA4F6\"\r",
+									"            ]\r",
+									"        },\r",
+									"        \"createdAt\": {\r",
+									"            \"type\": \"string\",\r",
+									"            \"default\": \"\",\r",
+									"            \"title\": \"The createdAt Schema\",\r",
+									"            \"examples\": [\r",
+									"                \"2024-10-08T15:35:48.688568\"\r",
+									"            ]\r",
+									"        }\r",
+									"    },\r",
+									"    \"examples\": [{\r",
+									"        \"id\": \"38b5a12c-50f2-4a09-b3c3-4e05bbf0690d\",\r",
+									"        \"username\": \"teste\",\r",
+									"        \"name\": \"Michelle Duso\",\r",
+									"        \"password\": \"$2a$12$ZjKHQapSWCObio2STlcB4ekIUHK1mJ68VoxC3i5zA8x0JBjlHA4F6\",\r",
+									"        \"createdAt\": \"2024-10-08T15:35:48.688568\"\r",
+									"    }]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Check response status\", function () {\r",
+									"    const statusCode = pm.response.code;\r",
+									"\r",
+									"    if (statusCode === 400) {\r",
+									"        const responseText = pm.response.text();\r",
+									"        pm.test(\"Validate 'Usuário já existe' message\", function () {\r",
+									"            pm.expect(responseText).to.eql(\"Usuário já existe\");\r",
+									"        });\r",
+									"    } else if (statusCode === 200) {\r",
+									"        const jsonData = pm.response.json();\r",
+									"\r",
+									"        pm.test(\"Status code is 200\", function () {\r",
+									"            pm.response.to.have.status(200);\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate user name\", function () {\r",
+									"            pm.expect(jsonData.name).to.eql(\"Michelle Duso\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validating the username\", function () {\r",
+									"            pm.expect(jsonData.username).to.be.a(\"string\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validating the password\", function () {\r",
+									"            pm.expect(jsonData.password).to.be.a(\"string\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validating Schema JSON fields\", function () {\r",
+									"            pm.expect(tv4.validate(jsonData, jsonSchema)).to.be.true;\r",
+									"        });\r",
+									"\r",
+									"    } else {\r",
+									"        pm.test(\"Unexpected status code\", function () {\r",
+									"            pm.expect.fail(\"Unexpected status code: \" + statusCode);\r",
+									"        });\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\":\"{{name_user}}\",\r\n   \"username\": \"michelleduso\",\r\n   \"password\":\"{{password_user}}\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "todo list",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\":\"Michelle Duso\",\r\n   \"username\": \"michelleduso\",\r\n   \"password\":\"12345\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 10 Sep 2024 23:40:31 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"f6fc56be-1ca5-49d2-a319-d740dc0e4957\",\n    \"username\": \"michelleduso\",\n    \"name\": \"Michelle Duso\",\n    \"password\": \"$2a$12$RGLuEcHHou0tdc5PSj8kx.vcY2RC9hi2mQ1LYS/4mvrjKI1OHQb5m\",\n    \"createdAt\": \"2024-09-10T20:40:31.609059\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Cadastro de tarefas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Primeiro teste para capturar o ID\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Capture and store ID from response\", function () {\r",
+									"    pm.expect(jsonData.id).to.exist;\r",
+									"    pm.environment.set(\"taskId\", jsonData.id); // Armazenando o ID como variável de ambiente\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate task description\", function () {\r",
+									"    pm.expect(jsonData.description).to.eql(\"Tarefas para gravar aula de Tasks do Curso de spring Boot\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate the task title\", function () {\r",
+									"    pm.expect(jsonData.title).to.eql(\"Gravação de aula\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating the start time\", function () {\r",
+									"    pm.expect(jsonData.startAt).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating the end time\", function () {\r",
+									"    pm.expect(jsonData.endAt).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Task priority\", function () {\r",
+									"    pm.expect(jsonData.priority).to.eql(\"ALTA\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating the user id\", function () {\r",
+									"    pm.expect(jsonData.idUser).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating the task creation date\", function () {\r",
+									"    pm.expect(jsonData.createdAt).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"// Definição do schema JSON\r",
+									"const jsonSchema = {\r",
+									"    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\r",
+									"    \"type\": \"object\",\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"description\",\r",
+									"        \"title\",\r",
+									"        \"startAt\",\r",
+									"        \"endAt\",\r",
+									"        \"priority\",\r",
+									"        \"idUser\",\r",
+									"        \"createdAt\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"id\": { \"type\": \"string\" },\r",
+									"        \"description\": { \"type\": \"string\" },\r",
+									"        \"title\": { \"type\": \"string\" },\r",
+									"        \"startAt\": { \"type\": \"string\" },\r",
+									"        \"endAt\": { \"type\": \"string\" },\r",
+									"        \"priority\": { \"type\": \"string\" },\r",
+									"        \"idUser\": { \"type\": \"string\" },\r",
+									"        \"createdAt\": { \"type\": \"string\" }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validating Schema JSON fields\", function() {\r",
+									"    pm.expect(tv4.validate(jsonData, jsonSchema)).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "michelleduso",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Tarefas para gravar aula de Tasks do Curso de spring Boot\",\r\n  \"title\":\"Gravação de aula\",\r\n  \"priority\":\"ALTA\",\r\n  \"startAt\":\"2024-10-09T20:30:00\",\r\n  \"endAt\":\"2024-10-10T23:35:00\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "tasks",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"Tarefas para gravar aula de Tasks do Curso de spring Boot\",\r\n  \"title\":\"Gravação de aula\",\r\n  \"priority\":\"ALTA\",\r\n  \"startAt\":\"2024-09-09T12:30:00\",\r\n  \"endAt\":\"2024-10-06T15:35:00\",\r\n  \"idUser\":\"f6fc56be-1ca5-49d2-a319-d740dc0e4957\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/tasks/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tasks",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 10 Sep 2024 23:45:47 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"3f60eba4-c4d3-42b4-8d99-7507cf45d473\",\n    \"description\": \"Tarefas para gravar aula de Tasks do Curso de spring Boot\",\n    \"title\": \"Gravação de aula\",\n    \"startAt\": \"2024-09-09T12:30:00\",\n    \"endAlt\": null,\n    \"priority\": \"ALTA\",\n    \"idUser\": \"f6fc56be-1ca5-49d2-a319-d740dc0e4957\",\n    \"createdAt\": \"2024-09-10T20:45:47.501645\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Listando tarefas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verificação do status da resposta e validação dos dados\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Validate task description\", function () {\r",
+									"    pm.expect(jsonData[0].description).to.eql(\"Tarefas para gravar aula de Tasks do Curso de spring Boot\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate task title\", function () {\r",
+									"    pm.expect(jsonData[0].title).to.eql(\"Alterando o Titulo\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate task start time\", function () {\r",
+									"    pm.expect(jsonData[0].startAt).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate task end time\", function () {\r",
+									"    pm.expect(jsonData[0].endAt).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate task priority\", function () {\r",
+									"    pm.expect(jsonData[0].priority).to.eql(\"ALTA\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate task user ID\", function () {\r",
+									"    pm.expect(jsonData[0].idUser).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate task creation date\", function () {\r",
+									"    pm.expect(jsonData[0].createdAt).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"const jsonSchema = {\r",
+									"    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\r",
+									"    \"$id\": \"http://example.com/example.json\",\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"description\",\r",
+									"            \"title\",\r",
+									"            \"startAt\",\r",
+									"            \"endAt\",\r",
+									"            \"priority\",\r",
+									"            \"idUser\",\r",
+									"            \"createdAt\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"description\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"startAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"endAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"priority\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"idUser\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"// Validação do schema JSON usando Ajv\r",
+									"pm.test(\"Validating Schema JSON fields\", function () {\r",
+									"    pm.expect(tv4.validate(jsonData, jsonSchema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "michelleduso",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/tasks/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "tasks",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/tasks/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"tasks",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 25 Sep 2024 02:18:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"5a192282-7d65-44b7-92d1-4411cfb33a9b\",\n        \"description\": \"Tarefas para gravar aula de Tasks do Curso de spring Boot\",\n        \"title\": \"Gravação de aula\",\n        \"startAt\": \"2024-09-25T09:30:00\",\n        \"endAt\": \"2024-09-26T10:35:00\",\n        \"priority\": \"ALTA\",\n        \"idUser\": \"2a1dcf4e-f4bb-4cdc-8ee6-4aa066de1e37\",\n        \"createdAt\": \"2024-09-24T23:18:53.556297\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Atualizando tarefa",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonSchema = {\r",
+									"    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\r",
+									"    \"$id\": \"http://example.com/example.json\",\r",
+									"    \"type\": \"object\",\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"description\",\r",
+									"        \"title\",\r",
+									"        \"startAt\",\r",
+									"        \"endAt\",\r",
+									"        \"priority\",\r",
+									"        \"idUser\",\r",
+									"        \"createdAt\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"description\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"title\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"startAt\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"endAt\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"priority\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"idUser\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"createdAt\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Check response status\", function () {\r",
+									"    const statusCode = pm.response.code;\r",
+									"\r",
+									"    if (statusCode === 400) {\r",
+									"        const responseText = pm.response.text();\r",
+									"        pm.test(\"Validate 'tarefa já cadastrada\", function () {\r",
+									"            pm.expect(responseText).to.eql(\"Validate 'tarefa já cadastrada\");\r",
+									"        });\r",
+									"    } else if (statusCode === 200) {\r",
+									"        const jsonData = pm.response.json();\r",
+									"\r",
+									"        pm.test(\"Status code is 200\", function () {\r",
+									"            pm.response.to.have.status(200);\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate task description\", function () {\r",
+									"            pm.expect(jsonData.description).to.eql(\"Tarefas para gravar aula de Tasks do Curso de spring Boot\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate task title\", function () {\r",
+									"            pm.expect(jsonData.title).to.eql(\"Alterando o Titulo\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate task start time\", function () {\r",
+									"            pm.expect(jsonData.startAt).to.be.a(\"string\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate task end time\", function () {\r",
+									"            pm.expect(jsonData.endAt).to.be.a(\"string\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate task priority\", function () {\r",
+									"            pm.expect(jsonData.priority).to.eql(\"ALTA\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate task user ID\", function () {\r",
+									"            pm.expect(jsonData.idUser).to.be.a(\"string\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validate task creation date\", function () {\r",
+									"            pm.expect(jsonData.createdAt).to.be.a(\"string\");\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Validating Schema JSON fields\", function () {\r",
+									"            pm.expect(tv4.validate(jsonData, jsonSchema)).to.be.true;\r",
+									"        });\r",
+									"\r",
+									"    } else {\r",
+									"        pm.test(\"Unexpected status code\", function () {\r",
+									"            pm.expect.fail(\"Unexpected status code: \" + statusCode);\r",
+									"        });\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "michelleduso",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"description\": \"Tarefas para gravar aula de Tasks do Curso de spring Boot\",\r\n        \"title\": \"Alterando o Titulo\",\r\n        \"startAt\": \"2024-09-25T09:30:00\",\r\n        \"endAt\": \"2024-09-26T10:35:00\",\r\n        \"priority\": \"ALTA\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/{{taskId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
